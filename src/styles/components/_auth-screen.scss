@@ -1,0 +1,5 @@
+.auth-screen {
+  @include flex-center(column);
+  background-color: $blue;
+  padding: 1em;
+}

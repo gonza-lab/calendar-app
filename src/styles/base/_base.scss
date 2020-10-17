@@ -1,0 +1,25 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+* {
+  font-family: 'Roboto', serif;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100vh;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+
+  > * {
+    height: 100%;
+  }
+}

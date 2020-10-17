@@ -1,0 +1,15 @@
+@mixin flex-center($property) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: $property;
+}
+
+@mixin hover-color($color) {
+  cursor: pointer;
+  transition: color 0.3s;
+
+  &:hover {
+    color: $color;
+  }
+}

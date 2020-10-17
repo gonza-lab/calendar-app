@@ -1,0 +1,15 @@
+// $dark-grey: #363636;
+$blue: #3498db;
+$red: #e74c3c;
+$green: #2ecc71;
+
+$primary: $blue;
+$primary-tpze: transparentize(
+  $color: $primary,
+  $amount: 0.5,
+);
+$primary-darken: darken($primary, 10);
+$darken-primary: darken(
+  $color: $primary,
+  $amount: 8,
+);

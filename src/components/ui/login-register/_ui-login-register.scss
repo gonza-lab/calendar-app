@@ -1,0 +1,118 @@
+.ui-login {
+  @include flex-center(column);
+  background-color: white;
+  box-shadow: 1px 3px 3px #363636;
+  border-radius: 2px;
+  padding: 20px;
+  max-width: 400px;
+  width: 100%;
+}
+
+.ui-login {
+  > * + * {
+    margin-top: 16px;
+  }
+
+  form {
+    @include flex-center(column);
+    max-width: 300px;
+    width: 100%;
+    button {
+      margin: 16px;
+      width: 100%;
+      background-color: $blue;
+      outline: none;
+      border-radius: 3px;
+      border: none;
+      color: white;
+      padding: 10px 15px;
+      font-size: 1.1rem;
+      transition: background-color 0.2s;
+      font-weight: 500;
+      cursor: pointer;
+      &:hover {
+        background-color: darken($blue, 5%);
+      }
+
+      &:disabled {
+        background-color: transparentize($color: $blue, $amount: 0.5);
+        cursor: progress;
+      }
+    }
+  }
+}
+
+.ui-login__title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 40px 0;
+  color: darken($primary, 10);
+  user-select: none;
+}
+
+.ui-login__input-group {
+  width: 100%;
+  $border-radius: 3px;
+  @include flex-center(column);
+
+  > * + * {
+    margin-top: 16px;
+  }
+}
+
+.ui-login__input-item {
+  width: 100%;
+  font-weight: 300;
+  font-size: 1.1rem;
+
+  div {
+    margin-top: 10px;
+    width: 100%;
+    position: relative;
+  }
+
+  i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 20px;
+    transition: opacity 0.3s;
+    color: transparentize(#363636, 0.8);
+  }
+
+  input {
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid transparent;
+    background-color: lighten(gray, 40%);
+    outline: none;
+    transition: border-color 0.5s;
+
+    &:focus {
+      border-color: $primary;
+    }
+
+    &:focus + i {
+      opacity: 0;
+    }
+  }
+
+  .ui-login__isWrited + i {
+    opacity: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 16px;
+  }
+}
+
+.ui-login__sign {
+  margin-top: 26px;
+  color: gray;
+  a {
+    font-weight: 500;
+    color: gray;
+  }
+}
