@@ -1,0 +1,22 @@
+.calendar-screen{
+  display: flex;
+  flex-direction: column;
+
+  > *{
+    flex-shrink: 1;
+  }
+
+  >.rbc-calendar{
+    height: 100%;
+  }
+}
+
+.calendar-screen__container{
+  height: 100%;
+  display: flex;
+  flex-shrink: 1;
+  
+  > *{
+    width: 100%;
+  }
+}

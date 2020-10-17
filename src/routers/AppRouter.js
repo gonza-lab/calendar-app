@@ -6,7 +6,7 @@ import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
 
 export const AppRouter = () => {
-  const isAuth = false;
+  const isAuth = true;
 
   return (
     <Router>

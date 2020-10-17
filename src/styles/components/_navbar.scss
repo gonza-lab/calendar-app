@@ -1,0 +1,54 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
+  background-color: $primary;
+  padding: 0 1em;
+}
+
+.navbar__profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  > div {
+    height: 50px;
+    width: 50px;
+    margin-right: 1em;
+    @include flex-center(row);
+    overflow: hidden;
+    border-radius: 100px;
+
+    > img {
+      zoom: 0.2;
+      object-fit: cover;
+    }
+  }
+
+  > p {
+    font-size: 1.1rem;
+    color: white;
+    font-weight: 400;
+  }
+}
+
+.navbar__sign-out {
+  @include flex-center(column);
+
+  > i {
+    font-size: 1.6rem;
+    cursor: pointer;
+    color: white;
+    padding: 10px;
+    border-radius: 100px;
+    transition: box-shadow 0.1s ease, background-color 0.3s ease;
+
+    &:hover {
+      background-color: $primary-darken;
+    }
+
+    &:active {
+      box-shadow: inset 0 0 5px rgba($color: #000000, $alpha: 0.3);
+    }
+  }
+}
