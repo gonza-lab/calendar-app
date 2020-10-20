@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Modal from 'react-modal';
 import DateTimePicker from 'react-datetime-picker';
@@ -8,42 +8,64 @@ import { useForm } from '../../hooks/useForm';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { closeModal as closeModalAction } from '../../actions/ui';
+import {
+  eventAddNew,
+  eventClearActive,
+  eventUpdateActive,
+} from '../../actions/event';
 
 Modal.setAppElement('#root');
 
 const now = moment().minutes(0).seconds(0).add(1, 'hours');
-const end = moment().minutes(0).seconds(0).add(2, 'hours');
+const endDate = moment().minutes(0).seconds(0).add(2, 'hours');
+
+const initValues = {
+  title: '',
+  notes: '',
+  start: now.toDate(),
+  end: endDate.toDate(),
+};
 
 export const CalendarModal = () => {
   const dispatch = useDispatch();
 
-  const { modalOpen } = useSelector((state) => state.ui);
+  const { ui, calendar } = useSelector((state) => state);
 
-  const [formValues, handleInputChange] = useForm({
-    title: 'Titulo de pruebas',
-    notes: 'Nota1, nota2, nota3',
-    startDate: now.toDate(),
-    endDate: end.toDate(),
-  });
+  const [formValues, handleInputChange, reset] = useForm(initValues);
 
-  const { title, notes, startDate, endDate } = formValues;
+  const { title, notes, start, end } = formValues;
+
+  const { modalOpen } = ui;
+  const { activeEvent } = calendar;
+
+  useEffect(() => {
+    if (activeEvent) {
+      reset(activeEvent);
+    }
+  }, [activeEvent, reset]);
 
   const closeModal = () => {
+    dispatch(eventClearActive());
     dispatch(closeModalAction());
+    reset();
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // const momentStart = moment(startDate);
-    // const momentEnd = moment(endDate);
+    if (activeEvent) {
+      dispatch(eventUpdateActive({ ...activeEvent, ...formValues }));
+    } else {
+      dispatch(
+        eventAddNew({
+          ...formValues,
+          id: new Date().getTime(),
+          user: { name: 'Gonzalo', _id: 123 },
+        })
+      );
+    }
 
-    // if (momentStart.isSameOrAfter(momentEnd)) {
-    //   console.log('La fecha 2 debe de ser mayor');
-
-    // } else{
-    //   console.log('asd')
-    // }
+    closeModal();
   };
 
   return (
@@ -63,9 +85,9 @@ export const CalendarModal = () => {
           <label>Fecha y hora inicio</label>
           <DateTimePicker
             onChange={(e) =>
-              handleInputChange({ target: { value: e, name: 'startDate' } })
+              handleInputChange({ target: { value: e, name: 'start' } })
             }
-            value={startDate}
+            value={start}
           />
         </div>
 
@@ -73,10 +95,10 @@ export const CalendarModal = () => {
           <label>Fecha y hora fin</label>
           <DateTimePicker
             onChange={(e) =>
-              handleInputChange({ target: { value: e, name: 'endDate' } })
+              handleInputChange({ target: { value: e, name: 'end' } })
             }
-            value={endDate}
-            minDate={startDate}
+            value={end}
+            minDate={start}
           />
         </div>
 

@@ -1,32 +1,31 @@
-.calendar-screen{
+.calendar-screen {
   display: flex;
   flex-direction: column;
 
-  > *{
+  > * {
     flex-shrink: 1;
   }
 }
 
-.calendar-screen__container{
+.calendar-screen__container {
   margin-top: 1em;
   height: 100%;
   display: flex;
   flex-shrink: 1;
   overflow: hidden;
 
-  > *{
+  > * {
     height: 100%;
     width: 100%;
   }
 }
 
-.calendar-screen__add-event{
-  background-color: $blue;
+.calendar-screen__add-event,
+.calendar-screen__delete-event {
   color: white;
   border-radius: 500px;
   position: absolute;
   bottom: 40px;
-  right: 40px;
   font-size: 2rem;
   font-weight: 500;
   width: 50px;
@@ -34,9 +33,24 @@
   border: none;
   outline: none;
   cursor: pointer;
-  transition: background-color .3s;
-  
-  &:hover{
+  transition: background-color .3s, opacity .3s;
+}
+
+.calendar-screen__add-event {
+  background-color: $blue;
+  right: 40px;
+
+  &:hover {
     background-color: darken($color: $blue, $amount: 5);
+  }
+}
+
+.calendar-screen__delete-event {
+  background-color: $red;
+  left: 40px;
+  font-size: 1.5rem;
+
+  &:hover {
+    background-color: darken($color: $red, $amount: 5);
   }
 }

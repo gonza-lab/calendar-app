@@ -11,6 +11,7 @@ const events = [
       name: 'Gonzalo',
       _id: 12354234,
     },
+    id: new Date().getTime(),
   },
 ];
 
@@ -29,6 +30,29 @@ export const calendarReducer = (
       return {
         ...state,
         events: [...state.events, action.payload],
+      };
+
+    case types.eventClearActive:
+      return {
+        ...state,
+        activeEvent: null,
+      };
+
+    case types.eventUpdate:
+      return {
+        ...state,
+        events: state.events.map((event) =>
+          event.id === action.payload.id ? action.payload : event
+        ),
+      };
+
+    case types.eventDelete:
+      return {
+        ...state,
+        events: state.events.reduce(
+          (acu, curr) => (curr.id === action.payload ? acu : [...acu, curr]),
+          []
+        ),
       };
 
     default:

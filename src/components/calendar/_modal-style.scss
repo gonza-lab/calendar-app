@@ -85,7 +85,8 @@ $duration: 0.5s;
       font-size: 1rem;
 
       > input,
-      textarea {
+      textarea,
+      .react-datetime-picker__wrapper {
         outline: none;
         margin-top: 0.4em;
         padding: 5px;
