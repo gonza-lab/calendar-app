@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+
 import { Navbar } from '../ui/navbar/Navbar';
 import { CalendarEvent } from './CalendarEvent';
+import { CalendarModal } from './CalendarModal';
 
 import 'moment/locale/es';
 import moment from 'moment';
@@ -8,6 +10,9 @@ import moment from 'moment';
 import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { messages } from '../../helpers/calendar-messages';
+import { openModal } from '../../actions/ui';
+import { useDispatch } from 'react-redux';
+import { eventSetActive } from '../../actions/event';
 
 moment.locale('es');
 const localizer = momentLocalizer(moment); // or globalizeLocalizer
@@ -31,6 +36,8 @@ const props = {
 };
 
 export const CalendarScreen = () => {
+  const dispatch = useDispatch();
+
   const [lastView, setlastView] = useState(
     localStorage.getItem('lastView') || 'month'
   );
@@ -49,11 +56,15 @@ export const CalendarScreen = () => {
   };
 
   const onDoubleClick = (e) => {
-    console.log(e);
+    dispatch(openModal());
+  };
+
+  const handleNewModal = () => {
+    dispatch(openModal());
   };
 
   const onSelectEvent = (e) => {
-    console.log(e);
+    dispatch(eventSetActive(e));
   };
 
   const onViewChange = (e) => {
@@ -81,6 +92,10 @@ export const CalendarScreen = () => {
           }}
         />
       </div>
+      <CalendarModal />
+      <button className="calendar-screen__add-event" onClick={handleNewModal}>
+        +
+      </button>
     </div>
   );
 };
