@@ -1,14 +1,18 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { startLogin } from '../../../actions/auth';
 import { useForm } from '../../../hooks/useForm';
 import { Input } from './Input';
 
 export const Login = () => {
-  const isLoading = false; //Cambiar
+  const { isLoading } = useSelector((state) => state.ui); 
+  const dispatch = useDispatch();
 
   const [values, handleInputChange] = useForm({ email: '', password: '' });
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(startLogin(values));
   };
 
   return (

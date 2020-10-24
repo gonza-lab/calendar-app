@@ -1,6 +1,14 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { startLogout } from '../../../actions/auth';
 
-export const Navbar = ({ name, urlImage }) => {
+export const Navbar = ({ urlImage }) => {
+  const { name } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(startLogout());
+  };
   return (
     <nav className="navbar">
       <div className="navbar__profile">
@@ -9,7 +17,7 @@ export const Navbar = ({ name, urlImage }) => {
         </div>
         <p>{name}</p>
       </div>
-      <div className="navbar__sign-out">
+      <div onClick={handleLogout} className="navbar__sign-out">
         <i className="fas fa-sign-out-alt"></i>
       </div>
     </nav>

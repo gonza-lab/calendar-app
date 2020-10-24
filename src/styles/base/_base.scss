@@ -23,3 +23,9 @@ body,
     height: 100%;
   }
 }
+
+.loader {
+  @include flex-center(row);
+  width: 100%;
+  height: 100%;
+}

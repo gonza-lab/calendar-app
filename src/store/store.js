@@ -1,5 +1,6 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
+import { authReducer } from '../reducers/authReducer';
 import { calendarReducer } from '../reducers/calendarReducer';
 
 import { uiReducer } from '../reducers/uiReducer';
@@ -11,7 +12,7 @@ const composeEnhancers =
 
 const rootReducers = combineReducers({
   ui: uiReducer,
-  // TODO auth: authReducer,
+  auth: authReducer,
   calendar: calendarReducer,
 });
 

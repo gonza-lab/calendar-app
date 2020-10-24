@@ -1,12 +1,16 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
+import { startRegister } from '../../../actions/auth';
 import { useForm } from '../../../hooks/useForm';
 import { Input } from './Input';
 
 export const Register = () => {
-  const isLoading = false; //Cambiar
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state.ui); 
 
   const [values, handleInputChange] = useForm({
-    nombre: '',
+    name: '',
     email: '',
     password: '',
     rePassword: '',
@@ -14,6 +18,12 @@ export const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (values.password !== values.rePassword) {
+      Swal.fire('Oops', 'Las contraseñas no coinciden', 'error');
+    } else {
+      const { name, email, password } = values;
+      dispatch(startRegister({ name, email, password }));
+    }
   };
 
   return (
@@ -23,9 +33,10 @@ export const Register = () => {
         <div className="ui-login__input-group">
           <Input
             text="Nombre"
+            name="name"
             type="text"
             handleInputChange={handleInputChange}
-            value={values.nombre}
+            value={values.name}
             i="fas fa-user-circle"
           />
           <Input
