@@ -16,19 +16,12 @@ export const AppRouter = () => {
 
   useEffect(() => {
     dispatch(startChecking());
-    console.log('Inicio');
   }, [dispatch]);
 
   if (isChecking) {
-    console.log('Checking');
     return (
       <div className="loader">
-        <Loader
-          type="TailSpin"
-          color="#00BFFF"
-          height={100}
-          width={100}
-        />
+        <Loader type="TailSpin" color="#00BFFF" height={100} width={100} />
       </div>
     );
   }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Navbar } from '../ui/navbar/Navbar';
@@ -16,8 +16,9 @@ import { openModal } from '../../actions/ui';
 import {
   eventAddNew,
   eventClearActive,
-  eventDeleteActive,
   eventSetActive,
+  startEventDelete,
+  startEventLoad,
 } from '../../actions/event';
 
 moment.locale('es');
@@ -34,14 +35,19 @@ export const CalendarScreen = () => {
   const { events: myEventsList, activeEvent } = useSelector(
     (state) => state.calendar
   );
+  const { uid } = useSelector((state) => state.auth);
 
   const [lastView, setlastView] = useState(
     localStorage.getItem('lastView') || 'month'
   );
 
+  useEffect(() => {
+    dispatch(startEventLoad());
+  }, [dispatch]);
+
   const eventStyleGetter = (e, start, end, isSelected) => {
     const style = {
-      backgroundColor: '#367CF7',
+      backgroundColor: e.user._id === uid ? '#3498db' : '#465660',
       borderRadius: '0px',
       opacity: 0.8,
       color: 'white',
@@ -61,7 +67,7 @@ export const CalendarScreen = () => {
   };
 
   const handleDeleteModal = () => {
-    dispatch(eventDeleteActive(activeEvent.id));
+    dispatch(startEventDelete(activeEvent.id));
   };
 
   const onSelectEvent = (e) => {

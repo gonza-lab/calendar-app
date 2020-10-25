@@ -9,9 +9,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { closeModal as closeModalAction } from '../../actions/ui';
 import {
-  eventAddNew,
   eventClearActive,
-  eventUpdateActive,
+  startEventAddNew,
+  startEventUpdate,
 } from '../../actions/event';
 
 Modal.setAppElement('#root');
@@ -54,15 +54,9 @@ export const CalendarModal = () => {
     e.preventDefault();
 
     if (activeEvent) {
-      dispatch(eventUpdateActive({ ...activeEvent, ...formValues }));
+      dispatch(startEventUpdate({ ...activeEvent, ...formValues }));
     } else {
-      dispatch(
-        eventAddNew({
-          ...formValues,
-          id: new Date().getTime(),
-          user: { name: 'Gonzalo', _id: 123 },
-        })
-      );
+      dispatch(startEventAddNew(formValues));
     }
 
     closeModal();
@@ -71,7 +65,6 @@ export const CalendarModal = () => {
   return (
     <Modal
       isOpen={modalOpen}
-      // onAfterOpen={isOpen}
       onRequestClose={closeModal}
       contentLabel="Example Modal"
       overlayClassName="modal-fondo"

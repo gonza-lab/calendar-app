@@ -1,22 +1,21 @@
-import moment from 'moment';
 import { types } from '../types/types';
 
-const events = [
-  {
-    title: 'Cumpleaños de gonza',
-    start: moment().toDate(),
-    end: moment().add(2, 'hours').toDate(),
-    bgcolor: '#fafafa',
-    user: {
-      name: 'Gonzalo',
-      _id: 12354234,
-    },
-    id: new Date().getTime(),
-  },
-];
+// const events = [
+//   {
+//     title: 'Cumpleaños de gonza',
+//     start: moment().toDate(),
+//     end: moment().add(2, 'hours').toDate(),
+//     bgcolor: '#fafafa',
+//     user: {
+//       name: 'Gonzalo',
+//       _id: 12354234,
+//     },
+//     id: new Date().getTime(),
+//   },
+// ];
 
 export const calendarReducer = (
-  state = { events, activeEvent: null },
+  state = { events: [], activeEvent: null },
   action
 ) => {
   switch (action.type) {
@@ -53,6 +52,16 @@ export const calendarReducer = (
           (acu, curr) => (curr.id === action.payload ? acu : [...acu, curr]),
           []
         ),
+      };
+
+    case types.eventLoad:
+      return {
+        ...state,
+        events: action.payload.map((event) => ({
+          ...event,
+          start: new Date(event.start),
+          end: new Date(event.end),
+        })),
       };
 
     default:
